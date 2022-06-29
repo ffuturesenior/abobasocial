@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { createParcipiantReq } from '../servFunctions/parcipiantFunctions'
 import { getRoomByNameReq } from '../servFunctions/roomFunctions'
 import {useHistory} from 'react-router-dom'
 import { getUser } from '../servFunctions/functions'
 import RoomIconComponent from '../components/RoomIconComponent'
+import { createParcipiantReq } from '../servFunctions/parcipiantFunctions'
 
 const JoinRoom=()=>{
 
@@ -12,6 +12,7 @@ const JoinRoom=()=>{
     const [userData,setUserData]=useState()
     const [isErr,setIsErr]=useState()
     const [,useless]=useState()
+    const [chatId,setChatId]=useState('0')
     const router=useHistory()
     useEffect(()=>{
         getUser(localStorage.getItem('userID'),setUserData,setIsErr,useless)
@@ -26,7 +27,7 @@ const JoinRoom=()=>{
     },[searchingName])
 
     const toRoom=(chatId)=>{
-        createParcipiantReq(localStorage.getItem('userID'),chatId,false,false,userData.username).then(router.push(`/room/${chatId}`))
+        createParcipiantReq(localStorage.getItem('userID'),chatId,false,false,userData.username).then( router.push(`/room/${chatId}`))
     }
 
     return(
@@ -41,7 +42,7 @@ const JoinRoom=()=>{
                     <div style={{maxHeight:"250px",overflow:"auto"}}>
                         {rooms.map((p)=>
                             <div key={p._id}>
-                                <RoomIconComponent roomId={p._id}/>
+                                <RoomIconComponent joinRoomCB={toRoom} roomId={p._id}/>
                             </div>
                         )}
                     </div>

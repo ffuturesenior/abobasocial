@@ -22,7 +22,7 @@ const CommentsComponent=({postId,userId,toggleCB})=>{
             setNewCommentData({
                 text:commentText,
                 postId:postId,
-                userId:userId,
+                userId:localStorage.getItem('userID'),
                 specialId:lastSpecialId
             })
             setCommentText('')

@@ -18,6 +18,11 @@ const Chats=()=>{
         getRoomByParcipiant(localStorage.getItem('userID'),setRooms)
     },[])
 
+
+    const toRoom=(chatId)=>{
+         router.push(`/room/${chatId}`)
+    }
+
     return(
         <div>
             
@@ -47,7 +52,7 @@ const Chats=()=>{
                     <div style={{maxHeight:"500px",overflow:"auto"}}>
                         {rooms.map((p)=>
                             <div key={p._id}>
-                                <RoomIconComponent roomId={p.chatId}/>
+                                <RoomIconComponent joinRoomCB={toRoom} roomId={p.chatId}/>
                             </div>
                         )}
                     </div>

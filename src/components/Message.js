@@ -105,7 +105,7 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
                     :
                         
                             
-                    <div onDoubleClick={redactMenu} style={{display:'inline-block',justifyContent:"space-between",padding:"5px",borderRadius:"5px",margin:"5px",maxWidth:"30%"}}>
+                    <div onDoubleClick={redactMenu} style={{display:'inline-block',justifyContent:"space-between",padding:"5px",borderRadius:"5px",margin:"5px",maxWidth:"50%"}}>
                         <div style={{display:'flex',flexDirection:`${flexDirection}`,alignItems:"top",justifyContent:"space-between"}}>
                             <div>
                                 <div onClick={()=>router.push(`/userprofile/${props.userId}`)} style={{cursor:'pointer'}}> 
@@ -119,7 +119,7 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
                                 }
                                
                                     <div>
-                                        {props.text}
+                                        <div style={{maxWidth:"400px",overflow:"auto"}}>{props.text}</div>
                                         {redactToggle?
                                             <div>
                                                 {/*<input value={text} onChange={(e)=>setText(e.target.value)}/>*/}

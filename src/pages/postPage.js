@@ -57,11 +57,16 @@ const PostPage=()=>{
         deleteCommentReq(id).then(router.goBack())
     }
 
+    const deletePost=()=>{
+        deletePostReq(id).then(router.push(`/`))
+    }
+
+
     return(
         <>  
             {isOwnPost?
                 <>
-                    <button style={{padding:"5px",border:"1px solid black",borderRadius:"5px"}} onClick={deleteComment}>delete post</button>
+                    <button style={{padding:"5px",border:"1px solid black",borderRadius:"5px"}} onClick={deletePost}>delete post</button>
                 </>
             :
                 <></>

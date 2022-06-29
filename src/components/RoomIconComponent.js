@@ -4,7 +4,7 @@ import { getRoomByIdReq } from "../servFunctions/roomFunctions";
 import Loader from "./Loader";
 
 
-const RoomIconComponent=({roomId})=>{
+const RoomIconComponent=({roomId,joinRoomCB})=>{
 
     const [roomData,setRoomData]=useState({})
     const [isLoading,setIsLoading]=useState()
@@ -14,12 +14,17 @@ const RoomIconComponent=({roomId})=>{
         getRoomByIdReq(roomId,setRoomData).then(setIsLoading(false))
     },[])
 
+    const toRoom=()=>{
+         joinRoomCB(roomId)
+
+    }
+   
     return(
-        <div onClick={()=>router.push(`/room/${roomId}`)}>
+        <div >
             {isLoading?
                 <><Loader/></>
             :
-                <div style={{display:"flex",alignItems:'center',borderBottom:"1px solid gray"}}>
+                <div onClick={toRoom} style={{display:"flex",alignItems:'center',borderBottom:"1px solid gray"}}>
                     <div style={{padding:"10px"}}>
                         <strong style={{}}>{roomData.name}</strong>
                     </div> 

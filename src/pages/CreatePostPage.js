@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Router, useHistory } from "react-router-dom";
 import { createPostReq } from "../servFunctions/postFunctions";
 
 
@@ -7,6 +8,7 @@ const CreatePostPage=()=>{
     const [inputPostField,setInputPostField]=useState({
         caption:""  
     })
+    const router=useHistory()
 
     const fileHandler=(e)=>{
         const file=e.target.files[0]
@@ -23,6 +25,7 @@ const CreatePostPage=()=>{
             formData.delete('userId')
             formData.delete('date')
         })
+        router.push(`/userprofile/${localStorage.getItem('userID')}`)
     }
 
     return(

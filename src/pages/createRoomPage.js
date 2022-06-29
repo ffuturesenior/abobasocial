@@ -16,6 +16,7 @@ const CreateRoomPage=()=>{
     const [,useless]=useState()
     
     useEffect(()=>{
+        console.log(localStorage.getItem('userID'))
         getUser(localStorage.getItem('userID'),setUserData,setIsErr,useless)
     },[])
 

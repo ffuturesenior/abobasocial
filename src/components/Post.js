@@ -32,7 +32,7 @@ const Post=({p})=>{
             setLikes([...likes,{postId:p._id,userId:localStorage.getItem('userID')}])
             likePostReq(p._id,localStorage.getItem('userID'),setLikeId).then(()=>setIsLiked(true))
         }else{
-            console.log(likeId)
+            //console.log(likeId)
             deleteLikeReq(p._id,localStorage.getItem('userID')).then(()=>setLikes(likes.filter((p)=>{
                 if(p.postId!=p._id&&p.userId!=localStorage.getItem('userID')){
                     return p;
