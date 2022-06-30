@@ -110,7 +110,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
                     :
                         
                             
-                    <div onDoubleClick={redactMenu} style={{display:'inline-block',justifyContent:"space-between",padding:"5px",borderRadius:"5px",margin:"5px",maxWidth:"50%"}}>
+                    <div onDoubleClick={redactMenu} style={{display:'inline-block',justifyContent:"space-between",padding:"5px",borderRadius:"5px",margin:"5px",maxWidth:"40%"}}>
                         <div style={{display:'flex',flexDirection:`${flexDirection}`,alignItems:"top",justifyContent:"space-between"}}>
                             <div>
                                 <div onClick={()=>router.push(`/userprofile/${props.userId}`)} style={{cursor:'pointer'}}> 
@@ -124,7 +124,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
                                 }
                                
                                     <div>
-                                        <div style={{maxWidth:"150px",wordWrap:"break-word"}}>
+                                        <div style={{width:"100%px",wordWrap:"break-word"}}>
                                             {props.text}
                                         </div>
                                         {redactToggle?
