@@ -29,13 +29,13 @@ const RoomData=()=>{
     },[searchingNick])
 
     const deleteParcipiantCB=(i)=>{
-        socket.emit('dlelteParcipiant',i,id)
+        socket.emit('delelteParcipiant',i,id)
         setParcipiants(parcipiants.filter((p)=>{
             if(p._id!=i) return p
         }))
     }
 
-    
+
 
     return(
         <div>

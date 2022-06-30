@@ -35,7 +35,7 @@ const ParcipiantComponent=({data,userIsOwner,userIsAdmin,deleteCB})=>{
     }
 
     const disbaleAdmin=()=>{
-         socket.emit('disbaleAdminUser',data.userId,data.chatId)
+         socket.emit('disableAdminUser',data.userId,data.chatId)
         chageParcipiantRoleReq(data._id,false).then(setIsAdmin(false))
     }
 
