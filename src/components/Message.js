@@ -124,7 +124,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
                                 }
                                
                                     <div>
-                                        <div style={{width:"100%px",wordWrap:"break-word"}}>
+                                        <div style={{width:"100%",wordWrap:"break-word"}}>
                                             {props.text}
                                         </div>
                                         {redactToggle?
