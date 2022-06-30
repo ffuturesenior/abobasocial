@@ -137,6 +137,9 @@ const Room=()=>{
        getParcipiantByUserIdAndChatId(userId,id,setParcipiantData,setIsErr)
     })
 
+    socket.on('disableAdminUser',(userId)=>{
+        getParcipiantByUserIdAndChatId(userId,id,setParcipiantData,setIsErr)
+    })
 
     const sendMessage=()=>{
         if(message.text.length>=1){

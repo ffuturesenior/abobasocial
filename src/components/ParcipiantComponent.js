@@ -24,17 +24,18 @@ const ParcipiantComponent=({data,userIsOwner,userIsAdmin,deleteCB})=>{
     },[])
 
     const kick=()=>{
+        socket.emit('delelteParcipiant',data.userId,data.chatId)
         deleteParcipiantReq(data._id).then(setDisplay(false))
         deleteCB(data._id)
     }
     
-    const promote=()=>
-    {   
+    const promote=()=>{   
         socket.emit('promoteUser',data.userId,data.chatId)
         chageParcipiantRoleReq(data._id,true).then(setIsAdmin(true))
     }
 
     const disbaleAdmin=()=>{
+         socket.emit('disbaleAdminUser',data.userId,data.chatId)
         chageParcipiantRoleReq(data._id,false).then(setIsAdmin(false))
     }
 
