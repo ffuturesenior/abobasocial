@@ -243,7 +243,7 @@ const Room=()=>{
                                                 </div>
                                             :
                                                 <div style={{textAlign:"left"}}>
-                                                    <Message setMessages={setMessages}  role={parcipiantData}  messages={messages} i1={i} rldPage={rld} isOwnMsg={false} props={p} redactCB={redactMsg} deleteCB={deleteMsg}/>
+                                                    <Message setMessages={setMessages}    messages={messages} i1={i} rldPage={rld} isOwnMsg={false} props={p} redactCB={redactMsg} deleteCB={deleteMsg}/>
                                                 </div>
                                             }
                                         </div>
