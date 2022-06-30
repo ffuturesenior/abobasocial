@@ -137,7 +137,7 @@ const Room=()=>{
        getParcipiantByUserIdAndChatId(userId,id,setParcipiantData,setIsErr)
     })
 
-    socket.on('disableAdminUser',(userId)=>{
+    socket.on('receiveDisableAdminUser',(userId)=>{
         getParcipiantByUserIdAndChatId(userId,id,setParcipiantData,setIsErr)
     })
 
