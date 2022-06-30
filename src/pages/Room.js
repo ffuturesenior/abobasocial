@@ -71,10 +71,10 @@ const Room=()=>{
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
     },[lastMsg])
 
-    socket.on('getRedactetMsg',({i,text})=>{
+   /* socket.on('getRedactetMsg',({i,text})=>{
         getMessageByChatID(id,setMessages,setIsErr,1000000)
         scrollRef.current?.scrollIntoView({behavior:"smooth"})
-    })
+    })*/
     
     socket.on('getDeletedMsg',(i)=>{
         //console.log(i.i)        
@@ -127,6 +127,16 @@ const Room=()=>{
     })
 
 
+    socket.on('recieveDeletedParcipiant',(id)=>{
+        if(localStorage.getItem('userID')==id){
+            router.push('/')
+        }
+    })
+
+    socket.on('recievePromotedUser',(userId)=>{
+       getParcipiantByUserIdAndChatId(userId,id,setParcipiantData,setIsErr)
+    })
+
 
     const sendMessage=()=>{
         if(message.text.length>=1){
@@ -139,7 +149,6 @@ const Room=()=>{
                 setMessage({...message,text:""})
             })
         }
-        
     }
 
     const rld=()=>{
@@ -221,7 +230,7 @@ const Room=()=>{
                                         <div ref={scrollRef} key={p._id?p._id:i}>
                                             {p.userId==localStorage.getItem('userID')?
                                                 <div style={{textAlign:"right"}}>
-                                                    <Message setMessages={setMessages} messages={messages} i1={i} isOwnMsg={true} props={p} deleteCB={deleteMsg}/>
+                                                    <Message setMessages={setMessages} role={parcipiantData} messages={messages} i1={i} isOwnMsg={true} props={p} deleteCB={deleteMsg}/>
                                                     {/*p.readed?
                                                         <>seen</>
                                                     :
@@ -231,7 +240,7 @@ const Room=()=>{
                                                 </div>
                                             :
                                                 <div style={{textAlign:"left"}}>
-                                                    <Message setMessages={setMessages} messages={messages} i1={i} rldPage={rld} isOwnMsg={false} props={p} redactCB={redactMsg} deleteCB={deleteMsg}/>
+                                                    <Message setMessages={setMessages}  messages={messages} i1={i} rldPage={rld} isOwnMsg={false} props={p} redactCB={redactMsg} deleteCB={deleteMsg}/>
                                                 </div>
                                             }
                                         </div>

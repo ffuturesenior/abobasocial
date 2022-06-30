@@ -59,6 +59,7 @@ export async function getParcipiantByUserIdAndChatId(userId,chatId,setFunc,setIs
         setFunc(res.data)
         setIsErr(false)
     }catch(e){
+        setIsErr(true)
     }
 }
 

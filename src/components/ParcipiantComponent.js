@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 import { getUser } from "../servFunctions/functions";
 import { chageParcipiantRoleReq, deleteParcipiantReq,getParcipiantByUserIdAndChatId } from "../servFunctions/parcipiantFunctions";
 import Avatar from "./Avatar";
-
+import {io} from 'socket.io-client'
 
 const ParcipiantComponent=({data,userIsOwner,userIsAdmin,deleteCB})=>{
-
+    const socket=io('https://abobasocial-socket-sync.herokuapp.com')
     const [isErr,setIsErr]=useState(true)
     const [userData,setUserData]=useState()
     const [myData,setMyData]=useState([])
@@ -28,7 +28,9 @@ const ParcipiantComponent=({data,userIsOwner,userIsAdmin,deleteCB})=>{
         deleteCB(data._id)
     }
     
-    const promote=()=>{
+    const promote=()=>
+    {   
+        socket.emit('promoteUser',data.userId,data.chatId)
         chageParcipiantRoleReq(data._id,true).then(setIsAdmin(true))
     }
 

@@ -7,7 +7,7 @@ import Avatar from "./Avatar";
 
 
 
-const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,deleteCB})=>{
+const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,deleteCB})=>{
     const [user,setUser]=useState({})
     const [messageData,setMessageData]=useState()
     const [isErr,setIsErr]=useState(true)
@@ -15,7 +15,7 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
     const [redactToggle,setRedactToggle]=useState(false)
     const [text,setText]=useState('')
     const [flexDirection,setFlexDirection]=useState('')
-    const [parcipiantData,setParcipiantData]=useState()
+    const [parcipiantData,setParcipiantData]=useState(role?role:{})
     const [,useless]=useState()
     const formData=new FormData()
     const router=useHistory()
@@ -23,7 +23,11 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
         setIsLoading(true)
        // getMessageByID(props._id,setMessageData,setIsErr)
         getUser(props.userId,setUser,setIsErr,useless)
-        getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
+        //getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
+        if(!role){
+            getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
+        }
+       // getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
         if(localStorage.getItem('userID')==props.userId){
             setFlexDirection('row')
         }else(
@@ -34,6 +38,10 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
         },500)
         setText(props.text)
     },[])
+
+ 
+   
+
 
     const redactMenu=()=>{
         if(isOwnMsg){
@@ -47,9 +55,7 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
     }
 
 
-    const removeMsg=()=>{
-        
-       
+    const removeMsg=()=>{  
         deleteMessage(props._id).then(deleteCB(props._id))
     }
 
@@ -87,7 +93,6 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
                                     {/*user.username*/}
                                 </div>
                                 <div style={{background:"#add8e6",padding:"5px",borderRadius:"5px"}}>
-                                    {props.text}
                                     {redactToggle?
                                         <div>
                                             {/*<input value={text} onChange={(e)=>setText(e.target.value)}/>*/}
@@ -119,7 +124,9 @@ const Message=({setMessages,messages=[],i1,rldPage,isOwnMsg,props,redactCB,delet
                                 }
                                
                                     <div>
-                                        <div style={{maxWidth:"400px",overflow:"auto"}}>{props.text}</div>
+                                        <div style={{maxWidth:"200px",wordWrap:"break-word"}}>
+                                            {props.text}
+                                        </div>
                                         {redactToggle?
                                             <div>
                                                 {/*<input value={text} onChange={(e)=>setText(e.target.value)}/>*/}

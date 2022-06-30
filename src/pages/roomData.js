@@ -4,9 +4,10 @@ import ParcipiantComponent from "../components/ParcipiantComponent";
 import { getParcipiantByUserIdAndChatId, get10ParcipiantByChatId,getParcipiantByName } from "../servFunctions/parcipiantFunctions";
 import UserSearchBarComponent from '../components/UserSearchBarComponent'
 import ParcipiantSearchBarComponent from "../components/ParcipiantSearchBarComponent";
+import {io} from 'socket.io-client'
 
 const RoomData=()=>{
-
+    const socket=io('https://abobasocial-socket-sync.herokuapp.com')
     const {id}=useParams()
     const [parcipiants,setParcipiants]=useState([])
     const [userData,setUserData]=useState({})
@@ -28,10 +29,13 @@ const RoomData=()=>{
     },[searchingNick])
 
     const deleteParcipiantCB=(i)=>{
+        socket.emit('dlelteParcipiant',i,id)
         setParcipiants(parcipiants.filter((p)=>{
             if(p._id!=i) return p
         }))
     }
+
+    
 
     return(
         <div>
