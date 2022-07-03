@@ -23,8 +23,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
         setIsLoading(true)
        // getMessageByID(props._id,setMessageData,setIsErr)
         getUser(props.userId,setUser,setIsErr,useless)
-        //getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
-        if(!role){
+        if(props.userId!=localStorage.getItem('userID')){
             getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
         }
        // getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
