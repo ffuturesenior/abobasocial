@@ -15,18 +15,17 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
     const [redactToggle,setRedactToggle]=useState(false)
     const [text,setText]=useState('')
     const [flexDirection,setFlexDirection]=useState('')
-    const [parcipiantData,setParcipiantData]=useState(role?role:{})
+    const [parcipiantData,setParcipiantData]=useState()
     const [,useless]=useState()
     const formData=new FormData()
     const router=useHistory()
     useEffect(()=>{
         setIsLoading(true)
-       // getMessageByID(props._id,setMessageData,setIsErr)
+        //getMessageByID(props._id,setMessageData,setIsErr)
         getUser(props.userId,setUser,setIsErr,useless)
-        if(props.userId!=localStorage.getItem('userID')){
-            getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
-        }
-       // getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
+        //console.log(props.userId!=localStorage.getItem('userID'))
+        getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
+        //getParcipiantByUserIdAndChatId(props.userId,props.chatId,setParcipiantData,setIsErr)
         if(localStorage.getItem('userID')==props.userId){
             setFlexDirection('row')
         }else(

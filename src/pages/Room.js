@@ -59,14 +59,14 @@ const Room=()=>{
     
        
     socket.on('getMsg',({_id,userId,chatId,text})=>{
-        setLastMsg({_id:_id,userId:userId,chatID:chatId,text:text,iamges:" "})
+        setLastMsg({_id:_id,userId:userId,chatId:chatId,text:text,iamges:" "})
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
         setIsLastMsgSeen({boolean:false,times:0})
     })
 
     
     useEffect(()=>{
-        console.log(lastMsg)
+        //console.log(lastMsg)
         setMessages(prev=>[...prev,lastMsg])
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
     },[lastMsg])
