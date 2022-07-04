@@ -205,7 +205,7 @@ const Room=()=>{
     }
 
     return(
-        <div>
+        <div style={{position:"relative",zIndex:"0"}}>
            
             {isLoading?
                 <>
@@ -220,7 +220,7 @@ const Room=()=>{
                         </div>
                     :
                     <div>
-                        <div style={{position:"absolute",height:"200px",overflow:"auto",maxWidth:"150px"}}>
+                        <div style={{position:"absolute",zIndex:"1",height:"100px",overflow:"auto",maxWidth:"150px"}}>
                             {notifications.map((p)=>
                                 <div onDoubleClick={()=>clearNotification(p.id)} key={p.id} style={{background:"grey",height:"50px",width:"150px"}}>
                                    <div style={{display:'flex'}}><p>{p.username}</p><p>{p.action?<p> added to group</p>:<p> leaved group</p>}</p></div>
