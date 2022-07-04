@@ -83,8 +83,15 @@ const ParcipiantComponent=({data,userIsOwner,userIsAdmin,deleteCB})=>{
                                             </div>
                                         :
                                             <div>
-                                                <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"5px 0px"}} onClick={kick}>kick</button><br/>
-                                                <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"5px 0px"}} onClick={promote}>promote</button>
+                                                {userIsAdmin?
+                                                    <>
+                                                        <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"5px 0px"}} onClick={kick}>kick</button><br/>
+                                                        <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"5px 0px"}} onClick={promote}>promote</button>
+                                                    </>
+                                                :
+                                                    <></>
+                                                }
+                                                
                                             </div>
                                         }
                                     </div>
