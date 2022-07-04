@@ -220,7 +220,7 @@ const Room=()=>{
                         </div>
                     :
                     <div>
-                        <div style={{position:"absolute",left:"100px",height:"200px",overflow:"auto",maxWidth:"100px"}}>
+                        <div style={{position:"absolute",height:"200px",overflow:"auto",maxWidth:"100px"}}>
                             {notifications.map((p)=>
                                 <div onDoubleClick={()=>clearNotification(p.id)} key={p.id} style={{background:"grey",height:"50px",width:"100px"}}>
                                     {p.username}{p.action?<p> added to group</p>:<p> leaved group</p>}
