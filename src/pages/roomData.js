@@ -28,7 +28,7 @@ const RoomData=()=>{
         }
     },[searchingNick])
 
-    const deleteParcipiantCB=(i)=>{
+    const deleteParcipiantCB=(i,username)=>{
         socket.emit('delelteParcipiant',i,id)
         socket.emit('joinRoomNotification',Date.now(),id,userData.username,false)
         setParcipiants(parcipiants.filter((p)=>{

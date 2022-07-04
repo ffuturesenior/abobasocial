@@ -26,7 +26,7 @@ const ParcipiantComponent=({data,userIsOwner,userIsAdmin,deleteCB})=>{
     const kick=()=>{
         socket.emit('delelteParcipiant',data.userId,data.chatId)
         deleteParcipiantReq(data._id).then(setDisplay(false))
-        deleteCB(data._id)
+        deleteCB(data._id,p.username)
     }
     
     const promote=()=>{   
