@@ -30,7 +30,7 @@ const RoomData=()=>{
 
     const deleteParcipiantCB=(i,username)=>{
         socket.emit('delelteParcipiant',i,id)
-        socket.emit('joinRoomNotification',Date.now(),id,userData.username,false)
+        socket.emit('joinRoomNotification',Date.now(),id,username,false)
         setParcipiants(parcipiants.filter((p)=>{
             if(p._id!=i) return p
         }))
