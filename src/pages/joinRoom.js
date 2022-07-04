@@ -4,9 +4,10 @@ import {useHistory} from 'react-router-dom'
 import { getUser } from '../servFunctions/functions'
 import RoomIconComponent from '../components/RoomIconComponent'
 import { createParcipiantReq } from '../servFunctions/parcipiantFunctions'
+import { io } from 'socket.io-client'
 
 const JoinRoom=()=>{
-
+    const socket =io('https://abobasocial-socket-sync.herokuapp.com')
     const [searchingName,setSearchingName]=useState('')
     const [rooms,setRooms]=useState([])
     const [userData,setUserData]=useState()
@@ -28,6 +29,7 @@ const JoinRoom=()=>{
 
     const toRoom=(chatId)=>{
         createParcipiantReq(localStorage.getItem('userID'),chatId,false,false,userData.username).then( router.push(`/room/${chatId}`))
+        socket.emit('joinRoomNotification',Date.now(),chatId,userData.username,true)
     }
 
     return(

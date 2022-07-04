@@ -37,6 +37,8 @@ const Room=()=>{
         userId:localStorage.getItem('userID'),
         text:""
     })
+    const [notifications,setNotifications]=useState([])
+    const [notificationActive,setNotificationActive]=useState(false)
     useEffect(()=>{
         setIsLoading(true)
         getUser(localStorage.getItem('userID'),setUserData,setIsErr,useless)
@@ -159,6 +161,7 @@ const Room=()=>{
         getMessageByChatID(id,setMessages,setIsErr,1000000)
         setTimeout(()=>{setIsErr(false)},2000)
     }
+
    /* const [lastMsgZone,inView,entry]=useInView({
         threshold:0,
         onChange:(inView,entry)=>{setIsLastMsgSeen({boolean:inView,times:isLastMsgSeen.times+1})}
@@ -191,7 +194,15 @@ const Room=()=>{
         }
     })*/
 
-   
+    socket.on('recieveNotification',(id,username,action)=>{
+        setNotifications(prev=>[...prev,{id:id,username:username,action:action}])
+    })
+
+    const clearNotification=(id)=>{
+        setNotifications(notifications.filter((p)=>{
+            if(id!=p.id) return p
+        }))
+    }
 
     return(
         <div>
@@ -209,11 +220,18 @@ const Room=()=>{
                         </div>
                     :
                     <div>
+                        <div style={{position:"absolute",height:"200px",overflow:"auto"}}>
+                            {notifications.map((p)=>
+                                <div onDoubleClick={()=>clearNotification(id)} key={p.id} style={{background:"grey",height:"50px",width:"1000px"}}>
+                                    {p.username}{p.action?<p> added to group</p>:<p> leaved group</p>}
+                                </div>    
+                            )}  
+                        </div>
+                        
                             <div  style={{textAlign:"center",padding:"10px 0px",height:"62px"}}><strong onClick={()=>router.push(`/roomdata/${id}`)}>{roomData.name}<br/>parcipiants:{parcipiants.length}</strong>
                             {writers.length>0?
                                 <div style={{display:'flex',margin:"0px auto",maxWidth:"300px",textAlign:"center"}}>
                                         {writers.map((p,i)=>
-                                            
                                             <p>{i+1>3?<></>:<>{p.username}{i+1!=3?<>,</>:<></>}</>}</p>
                                         )}<p>:writing</p>
                                 </div>
