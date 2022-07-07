@@ -21,10 +21,10 @@ const CreatePostPage=()=>{
         formData.append('userId',localStorage.getItem('userID'))
         formData.append('date',Date.now())
         createPostReq(formData).then(()=>{
-            formData.delete('caption')
-            formData.delete('userID')
-            formData.delete('date')
-            formData.delete('file')
+           // formData.delete('caption')
+           // formData.delete('userID')
+           // formData.delete('date')
+            //formData.delete('file')
         })
         router.push(`/userprofile/${localStorage.getItem('userID')}`)
     }

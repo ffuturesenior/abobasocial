@@ -50,7 +50,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 
 
 .App{
-	min-height: 100vh;
+	min-height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -71,7 +71,9 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 }
 
 .footer{
-	position: relative;
+	position: fixed;
+	top:92%;
+	width:100%;
 	z-index: 1;
 	margin-top: auto;
 }	

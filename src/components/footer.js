@@ -17,7 +17,7 @@ const Footer=()=>{
                         {/*<NavLink to='/chats'><p style={{color:"white",margin:"0px 5px"}}>chats</p></NavLink>*/}
                         <NavLink to='/globalpage'><p style={{color:"white",margin:"0px 5px"}}>globalpage</p></NavLink>
                         <NavLink to='/createPostPage'><p style={{color:"white",margin:"0px 5px"}}>createPost</p></NavLink>
-                        <NavLink to={`/userprofile/${id}`}><p style={{color:"white",margin:"0px 5px"}}>my profile</p></NavLink>
+                        <NavLink to={`/userprofile/${id}`}><p style={{color:"white",margin:"0px 5px"}}>mYprofile</p></NavLink>
                     </>
                     :
                         <>

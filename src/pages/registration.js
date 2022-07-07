@@ -2,9 +2,10 @@ import React, { useState,useContext } from "react";
 import { registrate } from "../servFunctions/functions";
 import { login } from "../servFunctions/functions";
 import {useDispatch} from 'react-redux'
-
+import { useSelector } from "react-redux";
 
 const Registration=()=>{
+    const isAuth=useSelector(state=>state.user.isAuth)
     const [userFormData,setUserFormData]=useState({
         username:"",
         email:"",
@@ -16,7 +17,9 @@ const Registration=()=>{
         e.preventDefault()
         const emailWithNoWhitespace = userFormData.email.replace(/\s/g, '')
         registrate(e,emailWithNoWhitespace,userFormData).then(()=>{
-            dispatch(login(userFormData,emailWithNoWhitespace))
+            if(!isAuth){
+                dispatch(login(userFormData,emailWithNoWhitespace))
+            }
         })
     }
 
@@ -26,12 +29,24 @@ const Registration=()=>{
             Registration
 
             <div>
-                <form>
-                    <input style={{display:"inline-block",border:"2px solid blue",borderRadius:"20px",padding:"15px",margin:"5px 0px"}} type="text" value={userFormData.username} onChange={(e)=>{setUserFormData({...userFormData,username:e.target.value})}} placeholder="username"/><br/>
-                    <input style={{display:"inline-block",border:"2px solid blue",borderRadius:"20px",padding:"15px",margin:"5px 0px"}} type="text"  value={userFormData.email} onChange={(e)=>{setUserFormData({...userFormData,email:e.target.value})}} placeholder="email"/><br/>
-                    <input style={{display:"inline-block",border:"2px solid blue",borderRadius:"20px",padding:"15px",margin:"5px 0px"}} type="password"  value={userFormData.password} onChange={(e)=>{setUserFormData({...userFormData,password:e.target.value})}} placeholder="password"/><br/>
-                    <button style={{border:"1px solid black",borderRadius:"10px",padding:"5px"}} onClick={reg}>submit</button>
-                </form>
+            <form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="email" value={userFormData.username} onChange={(e)=>{setUserFormData({...userFormData,username:e.target.value})}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                    <div id="emailHelp" class="form-text">min4 max 15</div>
+                </div>
+                <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input value={userFormData.email} onChange={(e)=>{setUserFormData({...userFormData,email:e.target.value})}} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input onChange={(e)=>{setUserFormData({...userFormData,password:e.target.value})}} type="password" class="form-control" id="exampleInputPassword1"/>
+                    <div id="passwordHelp" class="form-text">min4 max 15</div>
+                </div>
+                <button type="submit" onClick={reg} class="btn btn-primary">Submit</button>
+            </form>
             </div>
         </div>
     )
