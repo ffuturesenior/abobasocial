@@ -169,11 +169,18 @@ const UserProfile=()=>{
 
                                 <div style={{height:"50%"}}>
                                     <div style={{maxHeight:"320px",display:"grid",justifyContent:'center',overflow:"auto",gridTemplateColumns:"repeat(auto-fit,290px)",gridTemplateRows:"repeat(auto-fit,300)"}}>
-                                        {userPosts.map((p)=>
-                                            <div style={{width:"290px",margin:"0px auto"}} >
-                                                <PostFromUserPage key={p._id} p={p}/>
-                                            </div>
-                                        )}
+                                        {userPosts?
+                                            <>
+                                            {userPosts.map((p)=>
+                                                <div style={{width:"290px",margin:"0px auto"}}>
+                                                    <PostFromUserPage key={p._id} p={p}/>
+                                                </div>
+                                            )}
+                                            </>
+                                            :
+                                            <>no posts yet</>
+                                        }
+                                        
                                     </div> 
                                 </div>
                                

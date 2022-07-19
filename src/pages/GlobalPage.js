@@ -45,8 +45,8 @@ const GlobalPage=()=>{
                         <>
                              <div  style={{maxWidth:"304px",margin:"0px auto",position:'relative',zIndex:"1px"}}>
                                 <input style={{width:"80%",border:"3px solid blue",borderRadius:"9px",padding:"5px",margin:"0px auto"}} value={searchingNick} onChange={(e)=>setSearchedNick(e.target.value)}/>
-                                <div  style={{margin:"0px auto",maxWidth:"304px",height:"10%"}}>
-                                <div  aria-labelledby="dropdownMenuLink" style={{maxHeight:"60px",overflow:"auto"}}>
+                                <div style={{margin:"0px auto",maxWidth:"304px",height:"10%"}}>
+                                <div aria-labelledby="dropdownMenuLink" style={{maxHeight:"60px",overflow:"auto"}}>
                                     {findedUsers.map((p)=>
                                         <div  key={p._id}> 
                                             <UserSearchBarComponent p={p}/>

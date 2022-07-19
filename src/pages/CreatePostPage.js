@@ -13,6 +13,7 @@ const CreatePostPage=()=>{
     const fileHandler=(e)=>{
         const file=e.target.files[0]
         formData.append('file',file)
+        console.log(formData.get('file'))
     }
 
     const submitForm=(e)=>{

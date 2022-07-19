@@ -5,7 +5,7 @@ import { AdminContext } from '..'
 import { setUser } from '../redux/userReducer'
 
 const site_url=`https://abobasocial-server-dbsync.herokuapp.com/aboba`
-
+//https://abobasocial-server-dbsync.herokuapp.com/aboba
 
 export async function registrate(e,emailWithNoWhitespace,userData){
     e.preventDefault()

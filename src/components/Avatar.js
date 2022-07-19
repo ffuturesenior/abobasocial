@@ -2,12 +2,22 @@ import React from "react";
 
 
 const Avatar=({avatar,height,width})=>{
-    return(
+    var base64String;
+    console.log(avatar)
+    if(!avatar||avatar==" "){
+    }else{
+        base64String = btoa(
+            String.fromCharCode(...new Uint8Array(avatar.data.data))
+        );
+    }
+        return(
         <div>
-            {avatar!=" "?
-                <div style={{position:"relative",overflow:"hidden",border:"1px solid black",borderRadius:"45px",width:`${width}px`,height:`${height}px`}}><img style={{position:"absolute",height:"100%",width:"100%",objectFit:"cover"}} src={`https://abobasocial-server-dbsync.herokuapp.com/${avatar}`}/></div>
+            {!avatar||avatar==" "?
+                <div style={{border:"1px solid black",borderRadius:"45px",overflow:"hidden",width:`${width}px`,height:`${height}px`,background:"black"}}></div>   
             :
-                <div style={{border:"1px solid black",borderRadius:"45px",overflow:"hidden",width:`${width}px`,height:`${height}px`,background:"black"}}></div>
+                <div style={{position:"relative",overflow:"hidden",border:"1px solid black",borderRadius:"45px",width:`${width}px`,height:`${height}px`}}>
+                    <img style={{position:"absolute",height:"100%",width:"100%",objectFit:"cover"}}  src={`data:image/png;base64,${base64String}`} width="300"/>
+                </div>
             }
         </div>
     )
