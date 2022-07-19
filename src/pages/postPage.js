@@ -21,18 +21,28 @@ const PostPage=()=>{
     const [commentToggle,setCommentToggle]=useState(false)
     const router=useHistory()
     const isOwnPost=localStorage.getItem('userID')==userId
+    const [isImgLoaded,setIsImgLoaded]=useState(false)
+    const [base64String,setBase64String]=useState([])
     useEffect(()=>{
         setIsLoading(true)
         getLikes(id,setLikes,setIsLoading)
         setIsErr(true)
-        getPostReq(id,setPost)
+        getPostReq(id,setPost).then(()=>{
+          if(post.file){
+            setIsImgLoaded(true)
+            setBase64String(String.fromCharCode(...new Uint8Array(post.file.data.data)))  
+        }})
         checkLikeReq(id,localStorage.getItem('userID'),setIsLiked,setLikeId)
         getUser(userId,setUserData,setIsErr,setUseless).then(
             setIsLoading(false),setIsErr(false)
             //setIsErr(false)
         )
+        
     },[])
 
+   
+        
+    
     const like=()=>{
         if(!isLiked){
             setLikes([...likes,{postId:id,userId:localStorage.getItem('userID')}])
@@ -88,7 +98,15 @@ const PostPage=()=>{
                                 </div>
                                 
                                 <div style={{padding:"0px 0px",width:"300px",height:"200px"}}>
-                                    <img style={{objectFit:'cover',height:"100%",width:"100%"}} src={`https://abobasocial-server-dbsync.herokuapp.com/${post.file}`}/>
+                                    {isImgLoaded?
+                                        <> 
+                                            <img style={{objectFit:'cover',height:"100%",width:"100%"}}  src={`data:image/png;base64,${base64String}`} width="300"/>
+                                        </>
+                                        :
+                                        <>
+                                            404
+                                        </>
+                                    }
                                 </div>
                                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"2px 5px"}}><p>{likes.length}</p><p onClick={like} style={{cursor:'pointer',padding:'5px',border:"1px solid black",borderRadius:"5px"}}>{isLiked?<>remove like</>:<>like</>}</p></div>
                                 <p style={{padding:"0px 5px 2px"}}>{post.caption}</p>

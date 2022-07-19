@@ -33,8 +33,7 @@ const Post=({p})=>{
             //setIsErr(false)
         )
     },[])
-    const base64String = btoa(
-        
+    const base64String = btoa( 
         String.fromCharCode(...new Uint8Array(p.file.data.data))
     );
 
