@@ -28,9 +28,9 @@ const PostPage=()=>{
         getLikes(id,setLikes,setIsLoading)
         setIsErr(true)
         getPostReq(id,setPost).then(()=>{
-          if(post.file){
+        if(post.file){
             setIsImgLoaded(true)
-            setBase64String(String.fromCharCode(...new Uint8Array(post.file.data.data)))  
+            setBase64String(btoa(String.fromCharCode(...new Uint8Array(post.file.data.data))))  
         }})
         checkLikeReq(id,localStorage.getItem('userID'),setIsLiked,setLikeId)
         getUser(userId,setUserData,setIsErr,setUseless).then(
@@ -74,13 +74,16 @@ const PostPage=()=>{
 
     return(
         <>  
-            {isOwnPost?
+            <div>
+                {isOwnPost?
                 <>
                     <button style={{padding:"5px",border:"1px solid black",borderRadius:"5px"}} onClick={deletePost}>delete post</button>
                 </>
-            :
-                <></>
-            }
+                :
+                    <></>
+                }
+            </div>
+            
             <div style={{display:"flex",justifyContent:'center'}}>
                 {isLoading?
                     <>loading</>
@@ -89,7 +92,7 @@ const PostPage=()=>{
                         {isErr?
                             <>err</>
                         :
-                            <div style={{border:"2px solid black",display:"inline-block",position:"absolute",top:"10%"}}>
+                            <div style={{border:"2px solid black",display:"inline-block",position:"absolute",top:"100%"}}>
                                 <div style={{display:"flex",justifyContent:'space-between',alignItems:"center",padding:"0px 5px"}}>
                                     <div onClick={()=>router.push(`/userprofile/${userId}`)} style={{display:"flex",alignItems:"center",padding:"7px 0px",cursor:'pointer'}}>
                                         <Avatar width={40} height={40} avatar={userData.avatar}/><p>{userData.username}</p>
