@@ -35,6 +35,9 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
             setIsLoading(false)
         },500)
         setText(props.text)
+        if(user.username=={}||parcipiantData==undefined){
+            setIsErr(true)
+        }
     },[])
 
  
@@ -85,25 +88,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
             :
                 <>
                     {isErr?
-                        <div onClick={redactMenu} style={{display:'inline-block',justifyContent:"space-between",padding:"5px",borderRadius:"5px",margin:"5px",maxWidth:"30%"}}>
-                            <div>
-                                <div onClick={()=>router.push(`/userprofile/${messageData.userId}`)} style={{cursor:'pointer'}}> 
-                                    {/*user.username*/}
-                                </div>
-                                <div style={{background:"#add8e6",padding:"5px",borderRadius:"5px"}}>
-                                    {redactToggle?
-                                        <div>
-                                            {/*<input value={text} onChange={(e)=>setText(e.target.value)}/>*/}
-                                           {/*<button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"5px 0px"}} onClick={redact}>redact</button>*/}
-                                            <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"5px 0px"}} onClick={removeMsg}>delete</button>
-                                        </div>       
-                                    :
-                                        <div></div>
-                                    }
-                                
-                                    </div>
-                            </div>
-                        </div>
+                        <>err</>
                         
                     :
                         
@@ -112,7 +97,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
                         <div style={{display:'flex',flexDirection:`${flexDirection}`,alignItems:"top",justifyContent:"space-between"}}>
                             <div>
                                 <div onClick={()=>router.push(`/userprofile/${props.userId}`)} style={{cursor:'pointer'}}> 
-                                    {user.username}
+                                    {user.username?user.username:''}
                                 </div>
                                 <div style={{display:"inline-block",background:"#add8e6",padding:"5px",borderRadius:"5px"}}>
                                 {parcipiantData?
@@ -139,7 +124,7 @@ const Message=({setMessages,messages=[],role,i1,rldPage,isOwnMsg,props,redactCB,
                             </div>
                             <div onClick={()=>router.push(`/userprofile/${props.userId}`)}>
                                 {user.avatar!=" "?
-                                    <div style={{position:"relative",overflow:"hidden",border:"1px solid black",borderRadius:"45px",width:`${30}px`,height:`${30}px`}}><img style={{position:"absolute",left:"0px",height:"100%",overflow:"hidden",width:"100%",objectFit:"cover"}} src={`https://abobasocial-server-dbsync.herokuapp.com/${user.avatar}`}/></div>
+                                    <Avatar height={30} width={30} avatar={user.avatar}/>
                                 :
                                     <div style={{border:"1px solid black",borderRadius:"45px",overflow:"hidden",width:`${30}px`,height:`${30}px`,background:"black"}}></div>
                                 }

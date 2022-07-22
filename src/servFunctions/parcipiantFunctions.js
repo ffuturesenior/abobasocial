@@ -22,12 +22,14 @@ export async function createParcipiantReq(userId,chatId,isAdmin,isOwner,username
 ///parcipiants/getParcipiantsByChatId/:id
 
 
-export async function getParcipiantsByChatId(id,setFunc){
+export async function getParcipiantsByChatId(id,setFunc,setIsErr){
     try{
+        setIsErr(true)
         const res=await axios.get(`${site_url}/parcipiants/getParcipiantsByChatId/${id}`)
         setFunc(res.data)
+        setIsErr(false)
     }catch(e){
-
+        setIsErr(true)
     }
 }
 

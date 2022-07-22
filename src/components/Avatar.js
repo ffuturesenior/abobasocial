@@ -3,7 +3,7 @@ import React from "react";
 
 const Avatar=({avatar,height,width})=>{
     var base64String;
-    console.log(avatar)
+    //console.log(avatar)
     if(!avatar||avatar==" "){
     }else{
         base64String = btoa(
@@ -13,10 +13,10 @@ const Avatar=({avatar,height,width})=>{
         return(
         <div>
             {!avatar||avatar==" "?
-                <div style={{border:"1px solid black",borderRadius:"45px",overflow:"hidden",width:`${width}px`,height:`${height}px`,background:"black"}}></div>   
+                <div style={{border:"1px solid black",borderRadius:"90px",overflow:"hidden",width:`${width}px`,height:`${height}px`,background:"black"}}></div>   
             :
-                <div style={{position:"relative",overflow:"hidden",border:"1px solid black",borderRadius:"45px",width:`${width}px`,height:`${height}px`}}>
-                    <img style={{position:"absolute",height:"100%",width:"100%",objectFit:"cover"}}  src={`data:image/png;base64,${base64String}`} width="300"/>
+                <div style={{position:"relative",left:"0px",overflow:"hidden",border:"1px solid black",borderRadius:"90px",width:`${width}px`,height:`${height}px`}}>
+                    <img style={{position:"absolute",left:"0px",height:"100%",width:"100%",objectFit:"cover"}}  src={`data:image/png;base64,${base64String}`} width="300"/>
                 </div>
             }
         </div>

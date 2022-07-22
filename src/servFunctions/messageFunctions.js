@@ -28,7 +28,7 @@ export async function getMessageByChatID(chatID,setFunc,setIsErr,maxCount,setIsM
         return res.data
     }catch(error){
         console.log(error)
-      // setIsErr(true)
+        setIsErr(true)
     }
 }
 

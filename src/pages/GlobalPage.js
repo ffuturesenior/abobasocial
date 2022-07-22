@@ -1,4 +1,5 @@
 import React, { useEffect,useState } from "react";
+import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Post from "../components/Post";
 import UserSearchBarComponent from "../components/UserSearchBarComponent";
@@ -20,7 +21,6 @@ const GlobalPage=()=>{
     //var postScrollHeight;
 
     useEffect(()=>{
-        console.log(window.innerHeight)
         var intViewportHeight = window.innerHeight;
         setPostScrollHeight(intViewportHeight*0.75)
     },[window.innerHeight])
@@ -43,17 +43,8 @@ const GlobalPage=()=>{
                         <></>
                     :
                         <>
-                             <div  style={{maxWidth:"304px",margin:"0px auto",position:'relative',zIndex:"1px"}}>
-                                <input style={{width:"80%",border:"3px solid blue",borderRadius:"9px",padding:"5px",margin:"0px auto"}} value={searchingNick} onChange={(e)=>setSearchedNick(e.target.value)}/>
-                                <div style={{margin:"0px auto",maxWidth:"304px",height:"10%"}}>
-                                <div aria-labelledby="dropdownMenuLink" style={{maxHeight:"60px",overflow:"auto"}}>
-                                    {findedUsers.map((p)=>
-                                        <div  key={p._id}> 
-                                            <UserSearchBarComponent p={p}/>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                            <div style={{textAlign:'center'}}>
+                                <Link to='/usersearch'>user search</Link>
                             </div>
                             <div style={{margin:"0px auto",maxWidth:"304px",height:"80%",position:'relative',zIndex:"0px"}}>
                                 <div style={{maxHeight:`${postScrollHeight}px`,overflow:"auto"}}>

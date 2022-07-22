@@ -68,6 +68,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	position: relative;
 	z-index: 0;
 	flex: 1 1  auto;
+	
 }
 
 .footer{
@@ -116,4 +117,15 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	  transform: rotate(360deg);
 	}
 }
+
+.whiteBtn{
+	background: #FFFFFF;
+	border: 0.7px solid #CBCBCB;
+	border-radius: 3px;
+}
   
+.subscribe_btn{
+	background: #1FA1FF;
+	border-radius: 3px;
+	padding: 3px;
+}

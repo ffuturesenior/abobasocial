@@ -28,11 +28,17 @@ export async function getPostsReq(setFunc,setIsErr){
 }
 
 
-export async function getPostReq(id,setFunc){
+export async function getPostReq(id,setFunc,setIsErr,setString){
     try{
+        setIsErr(true)
         const res= await axios.get(`${site_url}/posts/${id}`)
         setFunc(res.data)
+        return res.data.file.data.data
+        console.log(res.data)
+        //setString(btoa(String.fromCharCode(...new Uint8Array(res.file.data.data))))
+        setIsErr(false)
     }catch(e){
+        setIsErr(true)
         console.log(e)     
     }
 }

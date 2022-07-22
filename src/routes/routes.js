@@ -13,6 +13,7 @@ import CreateRoomPage from '../pages/createRoomPage'
 import JoinRoom from '../pages/joinRoom'
 import RoomData from '../pages/roomData'
 import RedactProfilePage from '../pages/RedactProfile'
+import UserSearch from '../pages/userSearch'
 
 export const publicRoutes=[
     {path:'/login',Component:Login},
@@ -33,7 +34,8 @@ export const userRoutes=[
     {path:'/createRoom',Component:CreateRoomPage},
     {path:"/joinroom",Component:JoinRoom},
     {path:'/roomdata/:id',Component:RoomData},
-    {path:"/redactMyProfile",Component:RedactProfilePage}
+    {path:"/redactMyProfile",Component:RedactProfilePage},
+    {path:"/usersearch",Component:UserSearch}
 ]
 
 

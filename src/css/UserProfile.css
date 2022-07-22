@@ -1,0 +1,36 @@
+.UserProfile-firstBlock{
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.UserProfile-SecondBlock{
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    padding-top: 10px;
+    max-width: 500px;
+    margin: 0px auto;
+}
+
+
+
+@media (min-width:921px) {
+    .userPostsGrid{
+        display: grid;
+        height:80%;
+        overflow: auto;
+        grid-template-columns: repeat(auto-fill,295px);
+        grid-template-rows: repeat(auto-fill,295px); 
+    }
+}
+@media (max-width:921px) {
+    .userPostsGrid{
+        display: block;
+        height: 80%;
+        overflow: auto;
+        width: 295px;
+        margin: 0px auto;
+    }
+}

@@ -21,26 +21,27 @@ const PostPage=()=>{
     const [commentToggle,setCommentToggle]=useState(false)
     const router=useHistory()
     const isOwnPost=localStorage.getItem('userID')==userId
-    const [isImgLoaded,setIsImgLoaded]=useState(false)
-    const [base64String,setBase64String]=useState([])
+    const [isImgLoaded,setIsImgLoaded]=useState(true)
+    const [base64String,setBase64String]=useState('')
+    const [binarData,setBinarData]=useState([])
     useEffect(()=>{
         setIsLoading(true)
         getLikes(id,setLikes,setIsLoading)
         setIsErr(true)
-        getPostReq(id,setPost).then(()=>{
-        if(post.file){
-            setIsImgLoaded(true)
-            setBase64String(btoa(String.fromCharCode(...new Uint8Array(post.file.data.data))))  
-        }})
+        getPostReq(id,setPost,setIsErr,setBase64String)
         checkLikeReq(id,localStorage.getItem('userID'),setIsLiked,setLikeId)
         getUser(userId,setUserData,setIsErr,setUseless).then(
-            setIsLoading(false),setIsErr(false)
+            setIsLoading(false),setIsErr(false),
             //setIsErr(false)
         )
         
     },[])
 
-   
+    useEffect(()=>{
+        if(post.file){
+          setBase64String(btoa(String.fromCharCode(...new Uint8Array(post.file.data.data))))  
+        }
+    },[post])
         
     
     const like=()=>{

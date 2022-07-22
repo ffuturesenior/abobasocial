@@ -6,7 +6,7 @@ import { getUser, getUserAvatar, redactUserAvatar, redactUserCaption, redactUser
 import { getP2PChat,createP2PChat } from "../servFunctions/p2pChatFunctions";
 import { getUserPostsReq } from "../servFunctions/postFunctions";
 import { getSubscribers, getSubscribes, subscribeCheck, subscribeReq, unsubscribeReq } from "../servFunctions/subscribeFunctions";
-
+import '../css/UserProfile.css'
 
 const UserProfile=()=>{
     const router=useHistory()
@@ -31,6 +31,7 @@ const UserProfile=()=>{
     const [p2pChatId,setP2pChatId]=useState([])
     const [userPosts,setUserPosts]=useState([])
     const [isLoading,setIsLoading]=useState(true)
+    const [postScrollHeight,setPostScrollHeight]=useState()
     useEffect(()=>{
         setIsLoading(true)
         getUser(id,setUserData,setIsErr,setRedactData)
@@ -44,7 +45,11 @@ const UserProfile=()=>{
         }
     },[])
 
-
+    useEffect(()=>{
+        var intViewportHeight = window.innerHeight;
+        setPostScrollHeight(intViewportHeight*0.45)
+        console.log(intViewportHeight*0.55)
+    },[window.innerHeight])
     
     const formData=new FormData()
 
@@ -114,28 +119,26 @@ const UserProfile=()=>{
                 <>loading</>
                 :
                 <>
-                     <div style={{padding:"10px",maxWidth:"900px",margin:"0px auto"}}>
+                     <div>
                         {isErr?
                             <div>err</div>
                         :
                             <div>
-                                <div style={{display:"flex",justifyContent:"space-between"}}>
-                                    <strong style={{fontSize:"25px"}}>{userData.username}</strong>
-                                    <div style={{display:"flex"}}>
-                                        <p style={{margin:"0px 5px",textAlign:"center"}}>subs:<br/>{subscribersLength}</p>
-                                        <p style={{margin:"0px 5px",textAlign:'center'}}>following:<br/>{subscribesLength}</p>
+                                <div className="UserProfile-firstBlock">
+                                    <Avatar height={110} width={110} avatar={userData.avatar}/>
+                                    
+                                    <div>
+                                        <strong>{userData.username}</strong>
+                                        {isOwnProfile? <><button className="whiteBtn" onClick={(e)=>router.push('/redactMyProfile')}> redact profile</button></>:<></>}
                                     </div>
-                                    <button style={{border:"1px solid black",borderRadius:"5px",padding:"5px"}} onClick={()=>{router.goBack()}}>back</button>
+                                    <button className="whiteBtn" onClick={()=>{router.goBack()}}>back</button>
                                 </div>
-                                
-                                <Avatar height={100} width={100} avatar={userData.avatar}/>
                                 <br/>
                                 <br/>
-                                <p style={{fontSize:"20px"}}>{userData.caption==undefined?<></>:<>{userData.caption}</>}</p>
+                                <p>{userData.caption==undefined||" "?<>no caption</>:<>{userData.caption}</>}</p>
                                 <div>
                                 {isOwnProfile?
                                     <div>
-                                        <button style={{border:"1px solid black",borderRadius:"5px",padding:"5px"}} onClick={(e)=>router.push('/redactMyProfile')}> redact profile</button>
                                         {/*redactToggle?
                                             <div>
                                                 {/*<input style={{border:"1px solid black"}} value={redactData.username} onChange={(e)=>{setRedactData({...redactData,username:e.target.value})}}/><button style={{border:"1px solid black",borderRadius:"5px",padding:"5px"}} onClick={redactUsername}>change name</button><br/>}
@@ -152,14 +155,14 @@ const UserProfile=()=>{
                                         <div>
                                                 {isSubscribed?
                                                     <>
-                                                        <div style={{display:'flex'}}>
-                                                            <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"0px 5px"}} onClick={toChat}>to chat</button>
-                                                            <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"0px 5px"}} onClick={unsubscribe}>unsubscribre</button>
+                                                        <div>
+                                                            <button className="whiteBtn" onClick={toChat}>to chat</button>|
+                                                            <button className="whiteBtn" onClick={unsubscribe}>unsubscribre</button>
                                                         </div>
                                                     </>
                                                     :
                                                     <>
-                                                        <button style={{display:"inline-block",border:"1px solid black",borderRadius:"10px",padding:"5px",margin:"0px 5px"}} onClick={subscribe}>subscribe</button>
+                                                        <button  className="subscribe_btn" onClick={subscribe}>subscribe</button>
                                                     </>
                                                 }
                                             </div>
@@ -167,16 +170,21 @@ const UserProfile=()=>{
                                 }
                                 </div>
 
-                                <div style={{height:"50%"}}>
-                                    <div style={{maxHeight:"320px",display:"grid",justifyContent:'center',overflow:"auto",gridTemplateColumns:"repeat(auto-fit,290px)",gridTemplateRows:"repeat(auto-fit,300)"}}>
+                                <div >
+                                    <div className="UserProfile-SecondBlock">
+                                        <div>posts:{userPosts.length}</div>
+                                        <div>subs:<br/>{subscribersLength}</div>
+                                        <div>following:<br/>{subscribesLength}</div>
+                                    </div>   
+                                    <div className="userPostsGrid">
                                         {userPosts?
-                                            <>
-                                            {userPosts.map((p)=>
-                                                <div style={{width:"290px",margin:"0px auto"}}>
-                                                    <PostFromUserPage key={p._id} p={p}/>
-                                                </div>
-                                            )}
-                                            </>
+                                            <div style={{height:`${postScrollHeight}px`}}>
+                                                {userPosts.map((p)=>
+                                                    <div >
+                                                        <PostFromUserPage key={p._id} p={p}/>
+                                                    </div>
+                                                )}
+                                            </div>
                                             :
                                             <>no posts yet</>
                                         }

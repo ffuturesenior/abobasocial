@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { getUser } from "../servFunctions/functions";
 import { checkLikeReq, deleteLikeReq, getLikes, likePostReq } from "../servFunctions/likesFuncions";
 import Avatar from "./Avatar";
-
+import  '../css/userPost.css'
 
 
 const PostFromUserPage=({p})=>{
@@ -51,7 +51,7 @@ const PostFromUserPage=({p})=>{
         String.fromCharCode(...new Uint8Array(p.file.data.data))
     );
     return(
-        <div >
+        <div>
             {isLoading?
                 <>loading</>
             :
@@ -59,25 +59,17 @@ const PostFromUserPage=({p})=>{
                     {isErr?
                         <>err</>
                     :
-                        <div style={{border:"2px solid black",display:"inline-block"}}>
-                            <div style={{display:"flex",justifyContent:'space-between',alignItems:"center"}}>
-                                <div onClick={()=>router.push(`/userprofile/${p.userId}`)} style={{display:"flex",alignItems:"center",padding:"7px 5px",borderBottom:"1px solid black",cursor:'pointer'}}>
-                                    <Avatar height={30} width={30} avatar={userData.avatar}/><p>{userData.username}</p>
-                                </div>
-                                <Link  to={`/post/${p._id}&${p.userId}`}>details...</Link>
-                            </div>
-                            
+                        <div className='UserPostBlock'>
                             {isImgLoaded?
                                     <> 
-                                        <img style={{objectFit:'cover',height:"100%",width:"100%"}}  src={`data:image/png;base64,${base64String}`} width="300"/>
+                                        <img onClick={()=>router.push(`/post/${p._id}&${p.userId}`)} className='userImage'  src={`data:image/png;base64,${base64String}`} width="300"/>
                                     </>
                                     :
                                     <>
                                         404
                                     </>
                                 }
-                            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"2px 5px"}}><p>{likes.length}</p><p onClick={like} style={{cursor:'pointer',padding:'7px',border:"1px solid black",borderRadius:"10px"}}>{isLiked?<>remove like</>:<>like</>}</p></div>
-                            <p style={{padding:"0px 5px 2px"}}>{p.caption}</p>
+                            
                         </div>
                     }
                 </>}
