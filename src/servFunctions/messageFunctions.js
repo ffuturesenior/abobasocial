@@ -3,7 +3,7 @@ import { useContext } from 'react'
 
 const site_url=`https://abobasocial-server-dbsync.herokuapp.com/aboba`
 
-
+//https://abobasocial-server-dbsync.herokuapp.com/aboba
 
 export async function getMessageByID(msgId,setFunc,setIsErr){
     try{
@@ -31,6 +31,16 @@ export async function getMessageByChatID(chatID,setFunc,setIsErr,maxCount,setIsM
         setIsErr(true)
     }
 }
+
+export async function getMoreMessages(chatID,setFunc,maxCount,minCount){
+    try{
+        const res = await axios.get(`${site_url}/messages/getMore/${chatID}&${maxCount}&${minCount}`)
+        setFunc(res.data)
+    }catch(error){
+        console.log(error)
+    }
+}
+
 
 export async function getMessageLengthByChatID(chatID,setFunc,setIsErr,maxCount){
     try{

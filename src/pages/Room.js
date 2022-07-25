@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../servFunctions/functions";
-import { getMessageByChatID,postMessage, readMessageReq } from "../servFunctions/messageFunctions";
+import { getMessageByChatID,getMoreMessages,postMessage, readMessageReq } from "../servFunctions/messageFunctions";
 import Message from "../components/Message";
 import { getRoomByIdReq } from "../servFunctions/roomFunctions";
 import {io} from 'socket.io-client'
@@ -39,6 +39,7 @@ const Room=()=>{
     })
     const [notifications,setNotifications]=useState([])
     const [notificationActive,setNotificationActive]=useState(false)
+    const [maxCount,setMaxCount]=useState(1000000000)
     useEffect(()=>{
         setIsLoading(true)
         getUser(localStorage.getItem('userID'),setUserData,setIsErr,useless)
@@ -46,7 +47,7 @@ const Room=()=>{
         getRoomByIdReq(id,setRoomData)
         getParcipiantsByChatId(id,setParcipiants,setIsErr)
        // getMessageLengthByChatID(id,setMessagelength,setIsErr)
-        getMessageByChatID(id,setMessages,setIsErr,1000000,setIsMessages)
+        getMessageByChatID(id,setMessages,setIsErr,maxCount,setIsMessages)
         //getMessageByChatID(id,setMessages,setIsErr,maxCount)
         //setIsErr(true)
         socket.emit('joinRoom',id)
@@ -57,13 +58,18 @@ const Room=()=>{
         //console.log(id)
     },[id])
 
-   
-    
-       
+    function showNotification(text){
+        new Notification(`new message from ${roomData.name}`,{
+            body:{text:text,roomName:roomData.name},
+            icon:'https://www.google.com/imgres?imgurl=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D101076701589803&imgrefurl=https%3A%2F%2Fm.facebook.com%2FBlack-Screen-101076701589803%2Fphotos%2F&tbnid=gbQ2-gHYLdSaQM&vet=12ahUKEwjG35ev7pT5AhXaiv0HHRuWBG8QMygCegUIARDGAQ..i&docid=qfnp1GgucNZZ1M&w=960&h=960&q=black%20screen%20pic&ved=2ahUKEwjG35ev7pT5AhXaiv0HHRuWBG8QMygCegUIARDGAQ'
+        })
+    }
+
     socket.on('getMsg',({_id,userId,chatId,text})=>{
         setLastMsg({_id:_id,userId:userId,chatId:chatId,text:text,iamges:" "})
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
         setIsLastMsgSeen({boolean:false,times:0})
+        showNotification(text)
     })
 
     
@@ -86,13 +92,13 @@ const Room=()=>{
         })
         setMessages(hui)
         //console.log(messages)
-        getMessageByChatID(id,setMessages,setIsErr,100000,setIsMessages)
+        getMessageByChatID(id,setMessages,setIsErr,maxCount,setIsMessages)
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
     })
 
-    const redactMsg=(i,text)=>{
+    /*const redactMsg=(i,text)=>{
         socket.emit('redactMsg',i,text,id)
-    }
+    }*/
    
     const deleteMsg=(msgid)=>{
         socket.emit('deleteMsg',id,msgid)
@@ -158,7 +164,7 @@ const Room=()=>{
 
     const rld=()=>{
         setIsErr(true)
-        getMessageByChatID(id,setMessages,setIsErr,1000000)
+        getMessageByChatID(id,setMessages,setIsErr,maxCount)
         setTimeout(()=>{setIsErr(false)},2000)
     }
 
@@ -247,7 +253,6 @@ const Room=()=>{
 
                             <div style={{maxHeight:"100%"}}>
                                 <div style={{height:"400px",overflow:"auto",position:"relative",top:"0%"}}>
-                                    
                                     {messages.map((p,i)=>
                                         <div ref={scrollRef} key={p._id?p._id:i}>
                                             {p.userId==localStorage.getItem('userID')?
@@ -262,7 +267,7 @@ const Room=()=>{
                                                 </div>
                                             :
                                                 <div style={{textAlign:"left"}}>
-                                                    <Message setMessages={setMessages}    messages={messages} i1={i} rldPage={rld} isOwnMsg={false} props={p} redactCB={redactMsg} deleteCB={deleteMsg}/>
+                                                    <Message setMessages={setMessages}    messages={messages} i1={i} rldPage={rld} isOwnMsg={false} props={p} deleteCB={deleteMsg}/>
                                                 </div>
                                             }
                                         </div>

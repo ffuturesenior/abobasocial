@@ -48,11 +48,14 @@ const P2pChat=()=>{
     },[opponent,id])
 
    
-    
+    function showNotification(text,opponentName){
+        const notification=new Notification(`${opponentName}:${text}`,{text:text,opponentName:opponentName})
+    }
        
     socket.on('getMsg',({_id,userId,chatId,text})=>{
         setLastMsg({_id:_id,userId:userId,chatID:chatId,text:text,iamges:" "})
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
+        showNotification(text,opponentData.username)
     })
 
     

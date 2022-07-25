@@ -40,21 +40,34 @@ const Chats=()=>{
                 <div>Chats</div>
                 <div style={{margin:"0px 0px",maxWidth:"304px",height:"100%"}}>
                     <div style={{maxHeight:"200px",overflow:"auto"}}>
-                        {chats.map((p)=>
-                            <div key={p._id}>
-                                <ChatListIcon data={p}/>
-                            </div>
-                        )}
+                        {chats.length==0?
+                            <strong>no chats yet</strong>
+                        :
+                            <>
+                                {chats.map((p)=>
+                                    <div key={p._id}>
+                                        <ChatListIcon data={p}/>
+                                    </div>
+                                )}
+                            </>
+                        }
                     </div>
                 </div>
                 <div>rooms</div>
                 <div style={{margin:"0px 0px",maxWidth:"304px",height:"100%"}}>
-                    <div style={{maxHeight:"500px",overflow:"auto"}}>
-                        {rooms.map((p)=>
-                            <div key={p._id}>
-                                <RoomIconComponent joinRoomCB={toRoom} roomId={p.chatId}/>
-                            </div>
-                        )}
+                    <div style={{maxHeight:"200px",overflow:"auto"}}>
+                        {rooms.length==0?
+                            <strong>no rooms yet</strong>
+                        :
+                            <>
+                                {rooms.map((p)=>
+                                    <div key={p._id}>
+                                        <RoomIconComponent joinRoomCB={toRoom} roomId={p.chatId}/>
+                                    </div>
+                                )}
+                            </>
+                        }
+                       
                     </div>
                 </div>
                 </>

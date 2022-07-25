@@ -32,6 +32,7 @@ const UserProfile=()=>{
     const [userPosts,setUserPosts]=useState([])
     const [isLoading,setIsLoading]=useState(true)
     const [postScrollHeight,setPostScrollHeight]=useState()
+    const [gridBoolean,setGidBoolean]=useState('')
     useEffect(()=>{
         setIsLoading(true)
         getUser(id,setUserData,setIsErr,setRedactData)
@@ -43,14 +44,18 @@ const UserProfile=()=>{
         if(id==localStorage.getItem('userID')){
             setIsOwnProfile(true)
         }
+        
     },[])
 
+  
     useEffect(()=>{
-        var intViewportHeight = window.innerHeight;
-        setPostScrollHeight(intViewportHeight*0.45)
-        console.log(intViewportHeight*0.55)
-    },[window.innerHeight])
-    
+        if(window.innerWidth>921){
+            setGidBoolean('userPostsGridMax921')
+        }else{
+            setGidBoolean('userPostsGridMin921')
+        }
+    },[window.innerWidth])
+
     const formData=new FormData()
 
     const fileHandler=(e)=>{
@@ -176,15 +181,15 @@ const UserProfile=()=>{
                                         <div>subs:<br/>{subscribersLength}</div>
                                         <div>following:<br/>{subscribesLength}</div>
                                     </div>   
-                                    <div className="userPostsGrid">
+                                    <div className={gridBoolean}>
                                         {userPosts?
-                                            <div style={{height:`${postScrollHeight}px`}}>
+                                            <>
                                                 {userPosts.map((p)=>
                                                     <div >
                                                         <PostFromUserPage key={p._id} p={p}/>
                                                     </div>
                                                 )}
-                                            </div>
+                                            </>
                                             :
                                             <>no posts yet</>
                                         }
