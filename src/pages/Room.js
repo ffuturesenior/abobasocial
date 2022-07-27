@@ -58,18 +58,11 @@ const Room=()=>{
         //console.log(id)
     },[id])
 
-    function showNotification(text){
-        new Notification(`new message from ${roomData.name}`,{
-            body:{text:text,roomName:roomData.name},
-            icon:'https://www.google.com/imgres?imgurl=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D101076701589803&imgrefurl=https%3A%2F%2Fm.facebook.com%2FBlack-Screen-101076701589803%2Fphotos%2F&tbnid=gbQ2-gHYLdSaQM&vet=12ahUKEwjG35ev7pT5AhXaiv0HHRuWBG8QMygCegUIARDGAQ..i&docid=qfnp1GgucNZZ1M&w=960&h=960&q=black%20screen%20pic&ved=2ahUKEwjG35ev7pT5AhXaiv0HHRuWBG8QMygCegUIARDGAQ'
-        })
-    }
 
     socket.on('getMsg',({_id,userId,chatId,text})=>{
         setLastMsg({_id:_id,userId:userId,chatId:chatId,text:text,iamges:" "})
         bottomRef.current?.scrollIntoView({behavior:"smooth"})
         setIsLastMsgSeen({boolean:false,times:0})
-        showNotification(text)
     })
 
     
