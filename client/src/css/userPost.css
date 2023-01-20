@@ -1,0 +1,22 @@
+.UserPostBlock{
+    position: relative;
+    border: 2px solid black;
+    display:inline-block;
+    height:295px;
+    width:295px;
+}
+
+.userImage{
+    position:absolute;
+    object-fit:cover;
+    height:100%;
+    width:100%
+}
+
+.UserPostBlock:hover{
+    background-color: black;
+}
+
+.userImage:hover{
+    opacity: 0.5;
+}

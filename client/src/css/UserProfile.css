@@ -1,0 +1,32 @@
+.UserProfile-firstBlock{
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.UserProfile-SecondBlock{
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    padding-top: 10px;
+    max-width: 500px;
+    margin: 10px auto;
+    height: 10%;
+}
+
+
+
+
+.userPostsGridMax921{
+    margin: 0px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,295px);
+    grid-template-rows: repeat(auto-fill,295px); 
+}
+
+.userPostsGridMin921{
+    display: block;
+    width: 295px;
+    margin: 0px auto;
+}

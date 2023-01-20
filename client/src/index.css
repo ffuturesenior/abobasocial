@@ -1,0 +1,133 @@
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}*
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+
+::-webkit-scrollbar {
+	width: 0px;
+	height: 10px;
+  }
+
+::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0,0);
+  }
+  
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0);
+}
+
+.screen{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.content{
+    max-width: 900px;
+    margin: 0px auto;
+    padding: 0px 5px;
+	height:100%;
+	/*padding-bottom: 1.0rem;  */ 
+}
+
+
+.header{
+	display: inline-block;
+}
+
+.main{
+	display: inline-block;
+	flex: 1 1 auto;
+	height: 80%;
+	
+}
+
+.footer{
+	display: inline-block;
+}	
+
+
+
+
+.lds-ring {
+	display: inline-block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+  }
+  .lds-ring div {
+	box-sizing: border-box;
+	display: block;
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	margin: 8px;
+	border: 8px solid #fff;
+	border-radius: 50%;
+	animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+	border-color: #000 transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+	animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+	animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+	animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+}
+
+.whiteBtn{
+	background: #FFFFFF;
+	border: 0.7px solid #CBCBCB;
+	border-radius: 3px;
+}
+  
+.subscribe_btn{
+	background: #1FA1FF;
+	border-radius: 3px;
+	padding: 3px;
+}
