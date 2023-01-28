@@ -24,3 +24,11 @@ export async function getFileReq(id,setFunc,setIsLoading){
         console.log(e)
     }
 }
+
+export async function deleteFileReq(id){
+    try{
+        const res=await axios.delete(`${site_url}/file/${id}`)
+    }catch(e){
+        console.log(e)
+    }
+}

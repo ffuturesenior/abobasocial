@@ -19,7 +19,7 @@ export async function registrate(e,emailWithNoWhitespace,userData){
             pswd:userData.password,
             //admin:false,
             caption:" ",
-            avatar:" "
+            avatar:0
 
         })
         alert("created")
@@ -106,11 +106,11 @@ export async function  redactUserCaption(id,entryData){
     }
 }
 
-export async function  redactUserAvatar(id,entryData){
+export async function  redactUserAvatar(id,sp){
     try{
        // const prevData=await axios.get(`${site_url}/users/${id}`)
 
-        const res= await axios.put(`${site_url}/users/update/${id}`,entryData)
+        const res= await axios.put(`${site_url}/users/update/${id}`,{avatar:sp})
         alert("avatar redacted")
     }catch(e){
         console.log(e)     

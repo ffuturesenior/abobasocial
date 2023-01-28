@@ -6,7 +6,7 @@ const User=new mongoose.Schema({
     email:{type:String,required:true},
     pswd:{type:String,required:true},
     caption:{type:String,required:false},
-    avatar:{data:String,required:false},
+    avatar:{type:Number,required:true},
 })
 
 

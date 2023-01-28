@@ -7,7 +7,7 @@ const site_url=`http://localhost:5000/aboba`
 //https://abobasocial-server-dbsync.herokuapp.com/aboba
 export async function subscribeReq(id,otherUserId){
     try{
-        const res= await axios.post(`${site_url}aboba/subscribes`,{
+        const res= await axios.post(`${site_url}/subscribes`,{
             from:id,
             to:otherUserId
         })

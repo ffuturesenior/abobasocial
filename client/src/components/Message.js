@@ -82,11 +82,7 @@ const Message=({setMessages,messages=[],role,rldPage,isOwnMsg,props,deleteCB})=>
                                 </div>
                             </div>
                             <div onClick={()=>router.push(`/userprofile/${props.userId}`)}>
-                                {user.avatar!=" "?
-                                    <Avatar height={30} width={30} avatar={user.avatar}/>
-                                :
-                                    <div style={{border:"1px solid black",borderRadius:"45px",overflow:"hidden",width:`${30}px`,height:`${30}px`,background:"black"}}></div>
-                                }
+                                <Avatar height={30} width={30} avatar={user.avatar}/>
                             </div>
                         </div>
                     </div>

@@ -190,7 +190,7 @@ const Room=()=>{
                                 </div>
                                 <div class="input-group mb-3">
                                     <input value={message.text} onChange={(e)=>setMessage({...message,text:e.target.value})} type="text" class="form-control" placeholder="type text" aria-label="Recipient's username" aria-describedby="button-addon2"/>
-                                    <button onClick={sendMessage}class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                    <button onClick={sendMessage}class="btn btn-outline-secondary" type="button" id="button-addon2">send</button>
                                 </div>
                             </div>
                     </div>

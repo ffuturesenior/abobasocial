@@ -51,26 +51,10 @@ const UserProfile=()=>{
   
   
 
-    const formData=new FormData()
+  
 
-    const fileHandler=(e)=>{
-        const avatar=e.target.files[0]
-        formData.append('avatar',avatar)
-    }
 
-    const redactUsername=()=>{
-       // formData.append("username",redactData.username)
-        //formData.append('caption',redactData.caption)
-        //console.log(redactData.avatar)
-        if(redactData.username.length>=4){
-            redactUsername1(id,redactData.username)
-            //formData.delete('caption')
-            //formData.delete('avatar')
-        }else{
-            alert('short nickname')
-        }
-        
-    }
+ 
 
 
     const toChat=()=>{
@@ -98,15 +82,6 @@ const UserProfile=()=>{
         }
     },[newChat])
 
-    const redactCaption=()=>{
-        if(redactData.caption.length>1){
-            redactUserCaption(id,redactData.caption)
-        }
-    }
-
-    const redactAvatar=()=>{
-        redactUserAvatar(id,formData)
-    }
 
     const subscribe=()=>{
         subscribeReq(localStorage.getItem('userID'),id).then(setIsSubscribed(true)).then(setSubscribersLength(subscribersLength+1))
@@ -131,8 +106,27 @@ const UserProfile=()=>{
                                     <div>
                                         <Avatar height={110} width={110} avatar={userData.avatar}/><br/>
                                         <p style={{margin:"0px 20px"}}>{userData.caption==undefined||" "?<>no caption</>:<>{userData.caption}</>}</p>
-                                    </div>
-                                    
+                                        {isOwnProfile?
+                                            <div>
+                                            </div>
+                                        :
+                                            <div>
+                                                        {isSubscribed?
+                                                            <>
+                                                                <div>
+                                                                    <button className="whiteBtn" onClick={toChat}>to chat</button>|
+                                                                    <button className="whiteBtn" onClick={unsubscribe}>unsubscribre</button>
+                                                                </div>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <button  className="subscribe_btn" onClick={subscribe}>subscribe</button>
+                                                            </>
+                                                        }
+                                            </div>
+                                        }
+                                        </div>
+                                        
                                     <div>
                                         <strong>{userData.username}</strong>
                                         {isOwnProfile? <><button className="whiteBtn" onClick={(e)=>router.push('/redactMyProfile')}> redact profile</button></>:<></>}
@@ -143,27 +137,7 @@ const UserProfile=()=>{
                                     <div>
                                     <br/>
                                    
-                                    {isOwnProfile?
-                                        <div>
-                                        </div>
-                                    :
-                                        <div>
-                                            <div>
-                                                    {isSubscribed?
-                                                        <>
-                                                            <div>
-                                                                <button className="whiteBtn" onClick={toChat}>to chat</button>|
-                                                                <button className="whiteBtn" onClick={unsubscribe}>unsubscribre</button>
-                                                            </div>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <button  className="subscribe_btn" onClick={subscribe}>subscribe</button>
-                                                        </>
-                                                    }
-                                                </div>
-                                        </div>
-                                    }
+                                   
                                     </div>
                                 </div>
                                 
@@ -173,7 +147,7 @@ const UserProfile=()=>{
                                         <div>subs:<br/>{subscribersLength}</div>
                                         <div>following:<br/>{subscribesLength}</div>
                                     </div> 
-                                    <div style={{ margin:'0px auto',maxWidth:'299px',overflow:'auto',height:"90%"}}>
+                                    <div style={{ margin:'0px auto',maxWidth:'299px',overflowY:'scroll',height:"90%"}}>
                                         {userPosts?
                                             <>
                                                 {userPosts.map((p)=>

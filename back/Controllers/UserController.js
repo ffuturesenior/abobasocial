@@ -107,26 +107,13 @@ class UserController{
     }
     async  update(req,res){
         try{
-            //console.log('update func')
             const {id}=req.params
             const user=req.body
-            //const name=uuid.v4()
-            //console.log(req.files.avatar)
-            //const fileName=FileService.saveFile(req.files.avatar)
             if(!id){
                return res.status(400).json({message:"id undef"})
             }
-            if(req.files.avatar){
-                //const name=uuid.v4()
-                //console.log(req.files.picture.data)
-                //const fileRes=await uploadFile(req.files.picture.data,name)
-                //const fileName=FileService.saveFile(req.files.avatar)
-                const updatedUser=await User.findByIdAndUpdate(id,{...req.body,avatar:{data:req.files.avatar.data}},{new:true})
-                return res.status(200).json(updatedUser)     
-            }else{
-                const updatedUser=await User.findByIdAndUpdate(id,req.body,{new:true})
-                return res.status(200).json(updatedUser)     
-            }
+            const updatedUser=await User.findByIdAndUpdate(id,req.body,{new:true})
+            return res.status(200).json(updatedUser)     
         }catch(e){
             res.status(500).json(`${e}`)
         }

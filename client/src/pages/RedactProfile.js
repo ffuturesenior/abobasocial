@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from "react";
+import { createFileReq, deleteFileReq } from "../servFunctions/FileFunctions";
 import { getUser, getUserAvatar, redactUserAvatar, redactUserCaption, redactUsername1 } from "../servFunctions/functions";
 
 
@@ -14,33 +15,27 @@ const RedactProfilePage=()=>{
         caption:`${userData.caption}`,
         avatar:``
     })
-    const [isErr,setIsErr]=useState(true)
-    const [isLoading,setIsLoading]=useState()
+    const [activeFile,setActiveFile]=useState('')
+    const [isErr,setIsErr]=useState(false)
+    const [isLoading,setIsLoading]=useState(true)
     useEffect(()=>{  
         getUser(localStorage.getItem('userID'),setUserData,setIsErr,setRedactData,setIsLoading)
     },[])
 
     const formData=new FormData()
 
+
     const fileHandler=(e)=>{
-        const avatar=e.target.files[0]
-        formData.append('avatar',avatar)
+        const file=e.target.files[0]
+        formData.append('file',file)
+       //console.log(formData.get('file'))
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            setActiveFile(reader.result)
+        };
     }
 
-
-    const redactUsername=()=>{
-        // formData.append("username",redactData.username)
-         //formData.append('caption',redactData.caption)
-         //console.log(redactData.avatar)
-         if(redactData.username.length>=4){
-             redactUsername1(localStorage.getItem('userID'),redactData.username)
-             //formData.delete('caption')
-             //formData.delete('avatar')
-         }else{
-             alert('short nickname')
-         }
-         
-     }
  
 
     const redactCaption=()=>{
@@ -50,7 +45,10 @@ const RedactProfilePage=()=>{
     }
 
     const redactAvatar=()=>{
-        redactUserAvatar(localStorage.getItem('userID'),formData)
+        const sp=Date.now()*Math.random()
+        deleteFileReq(userData.avatar)
+        redactUserAvatar(localStorage.getItem('userID'),sp)
+        createFileReq(sp,activeFile)
     }
 
     return(
@@ -63,6 +61,13 @@ const RedactProfilePage=()=>{
                     <p>Caption now: {redactData.caption}</p>
                     <input style={{border:"1px solid black"}} value={redactData.caption} onChange={(e)=>{setRedactData({...redactData,caption:e.target.value})}}/><button style={{border:"1px solid black",borderRadius:"5px",padding:"5px"}} onClick={redactCaption}>change caption</button><br/>
                     <input style={{border:"1px solid black"}} type="file"  onChange={fileHandler}/>
+                    {activeFile!=''?
+                        <div style={{position:"relative",left:"0px",overflow:"hidden",border:"1px solid black",width:`${60}px`,height:`${60}px`}}>
+                            <img style={{position:"absolute",left:"0px",height:"100%",width:"100%",objectFit:"cover"}}  src={activeFile}/>
+                        </div>
+                    :
+                        <></>
+                    }
                     <button style={{border:"1px solid black",borderRadius:"5px",padding:"5px"}} onClick={redactAvatar}> put</button>           
                 </>
             }

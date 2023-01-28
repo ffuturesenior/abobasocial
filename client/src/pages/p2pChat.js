@@ -167,10 +167,9 @@ const P2pChat=()=>{
                                     )}
                                     <div></div>
                                 </div>
-                                <div style={{display:'flex',alignItems:"center",justifyContent:'center',textAlign:"center",padding:"10px 0px"}}>
-                                    <textarea style={{border:"2px solid blue",borderRadius:"10px",resize:'none'}} value={message.text} onChange={(e)=>setMessage({...message,text:e.target.value})}/>
-                                    <button style={{background:"blue",padding:"5px",borderRadius:"10px"}} onClick={sendMessage}>send</button>
-                                    
+                                <div class="input-group mb-3">
+                                    <input value={message.text} onChange={(e)=>setMessage({...message,text:e.target.value})} type="text" class="form-control" placeholder="type text" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+                                    <button onClick={sendMessage}class="btn btn-outline-secondary" type="button" id="button-addon2">send</button>
                                 </div>
                             </div>
                     </>

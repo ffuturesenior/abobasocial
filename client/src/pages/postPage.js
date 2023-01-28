@@ -27,11 +27,12 @@ const PostPage=()=>{
 
     useEffect(()=>{
         setIsLoading(true)
+        getUser(userId,setUserData,setIsErr,setUseless,setIsLoading)
         getPostReq(id,setPost,setIsErr,setIsLoading)
         getFileReq(specialId,setString,setIsImgLoading)
         getLikes(id,setLikes,setIsLoading,setIsErr)
         checkLikeReq(id,localStorage.getItem('userID'),setIsLiked,setLikeId)
-        getUser(userId,setUserData,setIsErr,setUseless,setIsLoading)//setIsErr(false)
+        //setIsErr(false)
     },[])
 
   

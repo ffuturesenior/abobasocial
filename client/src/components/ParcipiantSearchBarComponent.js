@@ -9,21 +9,19 @@ import {io} from 'socket.io-client'
 const ParcipiantSearchBarComponent=({data,id,userIsOwner,userIsAdmin,deleteCB})=>{
     const socket=io('http://localhost:5050')
     const router=useHistory()
-    const [p,setP]=useState({})
-    const [isErr,setIsErr]=useState(false)
+    
+   
     const [,useless]=useState()
-    const [isLoading,setIsLoading]=useState(true)
+  
     const [isOwner,setIsOwner]=useState(data.isOwner)
     const [isAdmin,setIsAdmin]=useState(data.isAdmin)
     const [display,setDisplay]=useState(false)
-    useEffect(()=>{
-        getUser(id,setP,setIsErr,useless,setIsLoading)
-    },[])
+   
 
     const kick=()=>{
         socket.emit('delelteParcipiant',data.userId,data.chatId)
         deleteParcipiantReq(data._id)
-        deleteCB(data._id,p.username)
+        deleteCB(data._id,data.username)
     }
     
     const promote=()=>{   
@@ -37,14 +35,7 @@ const ParcipiantSearchBarComponent=({data,id,userIsOwner,userIsAdmin,deleteCB})=
     }
     return(
         <div>
-            {isLoading?
-                <>loading</>
-            :
-                <>
-                    {isErr?
-                        <>err</>
-                    :
-                        <>
+           
                             <div class="card w-75 mb-3">
                                 <div class="card-body">
                                     <div onClick={()=>router.push(`/userprofile/${data.userId}`)}style={{display:"flex",alignItems:"center"}}>
@@ -101,10 +92,7 @@ const ParcipiantSearchBarComponent=({data,id,userIsOwner,userIsAdmin,deleteCB})=
                                             }
                                 </div>
                             </div>
-                        </>
-                    }
-                </>
-            }
+                        
         </div>
     )
 }
